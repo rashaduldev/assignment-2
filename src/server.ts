@@ -1,13 +1,19 @@
 
-
-// Middleware and route setups...
-
-import config from "./config/database";
+import mongoose from "mongoose";
+import config from "./config";
 import app from "./app";
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(config.database_url);
-});
+async function server(){
+    try {
+        await mongoose.connect(config.database_url as string)
 
-
+        app.listen(config.port,()=>{
+            console.log("Product server is running");
+            
+        })
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+ server();
