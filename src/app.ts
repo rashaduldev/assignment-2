@@ -6,9 +6,9 @@ const app = express();
 // middleware
 app.use(express.json())
 
-app.use("/api",productRoute)
+app.use("/",productRoute)
 
-app.get("/api",(req:Request,res:Response)=>{
+app.get("/",(req:Request,res:Response)=>{
     res.send({
         status:true,
         message:"server live"
