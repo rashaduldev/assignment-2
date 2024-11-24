@@ -38,13 +38,36 @@ const getProduct=async(req:Request,res:Response)=>{
          })
     }
  }
+ // get single bike
+const getSingleProduct=async(req:Request,res:Response)=>{
+    try {
+        console.log(req.params);
+        
+        const productId=req.params.productId;
+        const result=await productService.GetSingleproduct(productId)
+        res.send({
+            status:true,
+            message:"Bike getting successfully",
+            data:result,
+        })
+    } catch (error:any) {
+         res.json({
+             status:false,
+             message:"Something went wrong",
+             error,
+             stack: process.env.NODE_ENV === "development" ? error.stack : "Stack trace hidden",
+         })
+    }
+ }
  // Update bikes
 const UpdateProduct=async(req:Request,res:Response)=>{
     try {
-        const result=await productService.Getproduct()
+        const productId=req.params.productId;
+        const body = req.body;
+        const result=await productService.Updateproduct(productId, body);
         res.send({
             status:true,
-            message:"Bikes retrieved successfully",
+            message:"Bike info updated successfully",
             data:result,
         })
     } catch (error:any) {
@@ -59,11 +82,12 @@ const UpdateProduct=async(req:Request,res:Response)=>{
  // Delete bikes
 const deleteProduct=async(req:Request,res:Response)=>{
     try {
-        const result=await productService.Getproduct()
+        const productId=req.params.productId;
+        const result=await productService.Deleteproduct(productId)
         res.send({
             status:true,
-            message:"Bikes retrieved successfully",
-            data:result,
+            message:"Bikes deleted successfully",
+            data:{},
         })
     } catch (error:any) {
          res.json({
@@ -78,6 +102,7 @@ const deleteProduct=async(req:Request,res:Response)=>{
 export const productController={
     createProduct,
     getProduct,
+    getSingleProduct,
     UpdateProduct,
     deleteProduct
 }

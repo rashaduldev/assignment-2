@@ -5,17 +5,24 @@ const Createproduct=async(playload:IProduct):Promise<IProduct>=>{
     const result=await Product.create(playload)
     return result
 }
-// get user
+// get products
 const Getproduct=async()=>{
     const result=await Product.find()
     return result
 }
-// Update user
-const Updateproduct=async(id:string,data:IProduct)=>{
-    const result=await Product.findByIdAndUpdate(id,data)
+// get singleproducts
+const GetSingleproduct=async(id:string)=>{
+    const result=await Product.findById(id)
     return result
 }
-// Delete user
+// Update product
+const Updateproduct=async(id:string,data:IProduct)=>{
+    const result=await Product.findByIdAndUpdate(id,data,{
+        new:true,
+    })
+    return result
+}
+// Delete product
 const Deleteproduct=async(id:string)=>{
     const result=await Product.findByIdAndDelete(id)
     return result
@@ -24,6 +31,7 @@ const Deleteproduct=async(id:string)=>{
 export const productService={
     Createproduct,
     Getproduct,
+    GetSingleproduct,
     Updateproduct,
     Deleteproduct
 }
