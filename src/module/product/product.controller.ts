@@ -20,8 +20,44 @@ const createProduct=async(req:Request,res:Response)=>{
    }
 }
 
-// get user
+// get all bikes
 const getProduct=async(req:Request,res:Response)=>{
+    try {
+        const result=await productService.Getproduct()
+        res.send({
+            status:true,
+            message:"Bikes retrieved successfully",
+            data:result,
+        })
+    } catch (error:any) {
+         res.json({
+             status:false,
+             message:"Something went wrong",
+             error,
+             stack: process.env.NODE_ENV === "development" ? error.stack : "Stack trace hidden",
+         })
+    }
+ }
+ // Update bikes
+const UpdateProduct=async(req:Request,res:Response)=>{
+    try {
+        const result=await productService.Getproduct()
+        res.send({
+            status:true,
+            message:"Bikes retrieved successfully",
+            data:result,
+        })
+    } catch (error:any) {
+         res.json({
+             status:false,
+             message:"Something went wrong",
+             error,
+             stack: process.env.NODE_ENV === "development" ? error.stack : "Stack trace hidden",
+         })
+    }
+ }
+ // Delete bikes
+const deleteProduct=async(req:Request,res:Response)=>{
     try {
         const result=await productService.Getproduct()
         res.send({
@@ -41,5 +77,7 @@ const getProduct=async(req:Request,res:Response)=>{
 
 export const productController={
     createProduct,
-    getProduct
+    getProduct,
+    UpdateProduct,
+    deleteProduct
 }
