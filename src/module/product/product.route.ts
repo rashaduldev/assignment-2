@@ -3,6 +3,7 @@ import { Router } from "express";
 
 const productRoute=Router();
 
-productRoute.post('/create-product',productController.createProduct)
+productRoute.post('/products',productController.createProduct)
+productRoute.get('/products',productController.getProduct)
 
-export default productRoute
+export default productRoute;

@@ -1,10 +1,15 @@
 import { Schema, Document, model } from 'mongoose';
+import { IProduct } from './product.interface';
 
-const productSchema = new Schema(
+const productSchema = new Schema<IProduct>(
   {
     name: { type: String, required: true },
     brand: { type: String, required: true },
-    price: { type: Number, required: true, min: 0 },
+    price: { 
+      type: Number, 
+      required: [true, "Price is required"], 
+      min: [0, "Price must be a positive number"],
+    },
     category: {
       type: String,
       enum: ['Mountain', 'Road', 'Hybrid', 'Electric'],
@@ -17,7 +22,6 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-// const User = mongoose.model<IProduct>('Product', userSchema);
-const Product=model("Product",productSchema)
+const Product=model<IProduct>("Product",productSchema)
 
 export default Product;
